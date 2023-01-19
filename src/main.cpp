@@ -1,46 +1,29 @@
 #include <iostream>
-#include <memory>
-
 #include "Account.h"
-#include "Validator.h"
-
+#include "Account_Database.h"
+#include <string>
 
 int main() {
-    std::string controlflow;
-    do{
-        std::cout << "Please enter your username and password. Otherwise create a new user." << std::endl;
-        std::cout << "Username: ";
 
+    DB::Account_Database db;
+    while (true){
+
+        std::cout << "\nUsername: ";
         std::string username;
         std::cin >> username;
 
-        std::cout << "Password: ";
-
+        std::cout << "\nPassword: ";
         std::string password;
         std::cin >> password;
 
-        std::shared_ptr<Account> a1 = std::make_shared<Account>(username, password);
-            bool is_correct_pass = Validator::IsCorrectPassword(a1);
-            bool is_existing_user = Validator::IsAnExistingUser(a1);
+        Account acc{std::move(username), std::move(password)};
 
-            if (is_existing_user && is_correct_pass) {
-                std::cout << "Welcome " << a1->GetUserName() << std::endl;
-
-            } else if (is_existing_user && !is_correct_pass)   {
-                std::cout << "User already exists./Invalid password, please try again!" << std::endl;
-
-            }else{
-                std::cout << "Registering new user....";
-                Validator::AddUser(a1);
-            }
-
-        std::cout << "Register/Login another user? (Y/N)" << std::endl;
-        std::cin >> controlflow;
-
-        }while (controlflow != "N");
-
-    Account::ViewAccounts();
-
-    return 0;
+        if (db.exists_and_valid(acc)){
+            std::cout << "\nLogged in Successfully: ";
+        } else {
+            db.add_user(std::move(acc));
+            std::cout << "\nRegistering new user...";
+        }
+    }
 
 }

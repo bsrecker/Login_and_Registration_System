@@ -5,27 +5,21 @@
 #ifndef LOGIN_AND_REGISTRATION_SYSTEM_ACCOUNT_H
 #define LOGIN_AND_REGISTRATION_SYSTEM_ACCOUNT_H
 
-
-#include <utility>
 #include <string>
 
 class Account{
 
 private:
-    std::string username;
     std::string password;
-
+    std::string username;
 
 public:
-    Account(std::string  username, std::string  password)
+    Account(std::string_view username, std::string_view password)
             : username{username}, password{password}{
 
     };
-    std::string GetUserName() const;
+    bool operator==(const Account& other) const;
 
 
-    std::string GetPassword() const;
-
-    static void ViewAccounts();
 };
 #endif //LOGIN_AND_REGISTRATION_SYSTEM_ACCOUNT_H

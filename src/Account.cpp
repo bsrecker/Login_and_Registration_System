@@ -4,21 +4,11 @@
 
 #include <string>
 #include "Account.h"
-#include "Validator.h"
 
-std::string Account::GetUserName() const {
-    return this->username;
+
+bool Account::operator==(const Account &other) const {
+    if (this->username == other.username && this->password == other.password){
+        return true;
+    } else
+        return false;
 }
-
-std::string Account::GetPassword() const {
-    return this->password;
-}
-
-void Account::ViewAccounts() {
-    for(const auto& i : Validator::getListOfUsers()){
-        std::cout << "Username: " << i.GetUserName() << std::endl;
-        std::cout << "Password: " << i.GetPassword() << std::endl;
-        std::cout << "****************************************" << std::endl;
-    }
-}
-
