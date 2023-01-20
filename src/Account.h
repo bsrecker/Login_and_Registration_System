@@ -7,11 +7,13 @@
 
 #include <string>
 
+
 class Account{
 
 private:
-    std::string password;
-    std::string username;
+    std::string_view password;
+    std::string_view username;
+
 
 public:
     Account(std::string_view username, std::string_view password)
@@ -20,6 +22,6 @@ public:
     };
     bool operator==(const Account& other) const;
 
-
 };
+
 #endif //LOGIN_AND_REGISTRATION_SYSTEM_ACCOUNT_H

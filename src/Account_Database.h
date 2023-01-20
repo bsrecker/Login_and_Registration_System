@@ -19,12 +19,11 @@ namespace DB {
 
     public:
 
-        bool exists_and_valid(const Account &);
+        bool user_exists(const Account &);
 
         void add_user(Account);
 
         void remove_user(const Account &);
-
 
     };
 }
