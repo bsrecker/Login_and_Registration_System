@@ -33,7 +33,7 @@ void DB::Account_Database::display_all_users() const {
     }
 }
 
-bool DB::Account_Database::validate_password(const Account &acc, const std::string& password) {
+bool DB::Account_Database::validate_password(const Account &acc, const std::string& password) const{
     return acc.get_password() == password;
 }
 

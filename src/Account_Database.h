@@ -27,7 +27,7 @@ namespace DB {
 
         void display_all_users() const;
 
-        static bool validate_password(const Account &, const std::string&) ;
+        bool validate_password(const Account &, const std::string&) const;
     };
 
 }

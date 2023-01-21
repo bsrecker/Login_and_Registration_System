@@ -47,7 +47,7 @@ int main() {
                     std::cin >> password;
 
                     //Validate password against current logged in account and delete if true
-                    if (DB::Account_Database::validate_password(acc, password)){
+                    if (db.validate_password(acc, password)){
                         db.remove_user(acc);
                         std::cout << "Successfully deleted user.\n";
 
