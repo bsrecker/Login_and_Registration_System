@@ -1,7 +1,15 @@
 #include <iostream>
 #include <string>
+#include <limits>
 #include "Account.h"
 #include "Account_Database.h"
+
+
+void input_fail() {
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    std::cerr << "Invalid selection, please try again.\n";
+}
 
 int main() {
     DB::Account_Database db;
@@ -19,24 +27,32 @@ int main() {
             std::string password;
             std::cin >> password;
 
-            //check if user exists in database
+
             Account acc{std::move(username), std::move(password)};
 
-            //if yes, login
+            //check if user exists in the database. If yes, login.
             if (db.user_exists(acc)) {
-                std::cout << "\nLogin successful!";
+                std::cout << "Login successful!\n";
 
                 int selection;
-                std::cout << "\nPress 1 to delete user, otherwise press any button to log out\n";
+                std::cout << "Press 1 to delete user, otherwise press 0 to log out\n";
                 std::cin >> selection;
 
                 if (selection == 1) {
                     db.remove_user(acc);
-                    std::cout << "\nSuccessfully deleted user.";
+                    std::cout << "Successfully deleted user.\n";
+
+                }else if (selection == 0){
+                    std::cout << "Logged out!\n";
+
+                }else{
+                    input_fail();
                 }
+
             } else {
-                std::cout << "\nInvalid username/password";
+                std::cout << "Invalid username/password\n";
             }
+
         } else if (choice == 2) {
             std::cout << "Enter new username: ";
             std::string user;
@@ -51,7 +67,7 @@ int main() {
 
             //add user to the database
             db.add_user(acc);
-            std::cout << "\nSuccessfully registered as a new user...";
+            std::cout << "Successfully registered as a new user...\n";
 
             //remove the logged-in user from the database
         } else if (choice == 3) {
@@ -60,6 +76,12 @@ int main() {
             //Exit the program
         } else if (choice ==4){
             return 0;
+
+            //Catch invalid inputs and throw an error message
+        }else{
+            input_fail();
         }
     }
 }
+
+
