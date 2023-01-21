@@ -9,7 +9,7 @@
 
 
 
-bool DB::Account_Database::user_exists(const Account &acc) {
+bool DB::Account_Database::user_exists(const Account &acc) const {
     auto it = list_of_users.find(acc.get_username());
     if (it != list_of_users.end()){
         return it->second.get_password() == acc.get_password();
@@ -26,7 +26,7 @@ void DB::Account_Database::remove_user(const Account &acc) {
     list_of_users.erase(acc.get_username());
 }
 
-void DB::Account_Database::display_all_users() {
+void DB::Account_Database::display_all_users() const {
     for (const auto &i : list_of_users){
         std::cout << i.first << "\n";
         std::cout <<"***********************\n";
