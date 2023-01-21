@@ -7,6 +7,7 @@
 
 #include <map>
 #include "Account.h"
+#include <string>
 
 
 namespace DB {
@@ -25,6 +26,9 @@ namespace DB {
         void remove_user(const Account &);
 
         void display_all_users() const;
+
+        static bool validate_password(const Account &, const std::string&) ;
     };
+
 }
 #endif //LOGIN_AND_REGISTRATION_SYSTEM_ACCOUNT_DATABASE_H

@@ -40,9 +40,21 @@ int main() {
                 std::cout << "Press 1 to delete user, otherwise press 4 to log out\n";
                 std::cin >> selection;
 
-                if (selection == Register) {
-                    db.remove_user(acc);
-                    std::cout << "Successfully deleted user.\n";
+                if (selection == 1) {
+                    //Prompt user for confirmation password.
+                    std::cout << "Please enter your password to confirm: \n";
+                    std::string validation;
+                    std::cin >> password;
+
+                    //Validate password against current logged in account and delete if true
+                    if (DB::Account_Database::validate_password(acc, password)){
+                        db.remove_user(acc);
+                        std::cout << "Successfully deleted user.\n";
+
+                    } else{
+                        std::cout << "Invalid password!\n";
+                    }
+
 
                 }else if (selection == Exit){
                     std::cout << "Logged out!\n";
