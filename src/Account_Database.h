@@ -18,13 +18,13 @@ namespace DB {
 
     public:
 
-        bool user_exists(const Account &);
+        bool user_exists(const Account &) const;
 
         void add_user(const Account &);
 
         void remove_user(const Account &);
 
-        void display_all_users();
+        void display_all_users() const;
     };
 }
 #endif //LOGIN_AND_REGISTRATION_SYSTEM_ACCOUNT_DATABASE_H
