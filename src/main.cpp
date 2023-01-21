@@ -11,6 +11,8 @@ void input_fail() {
     std::cerr << "Invalid selection, please try again.\n";
 }
 
+enum User_Input {Login = 1, Register, Display_All_Users, Exit};
+
 int main() {
     DB::Account_Database db;
     while (true) {
@@ -18,7 +20,7 @@ int main() {
         int choice;
         std::cin >> choice;
 
-        if (choice == 1) {
+        if (choice == Login) {
             std::cout << "Enter username: ";
             std::string username;
             std::cin >> username;
@@ -35,14 +37,14 @@ int main() {
                 std::cout << "Login successful!\n";
 
                 int selection;
-                std::cout << "Press 1 to delete user, otherwise press 0 to log out\n";
+                std::cout << "Press 1 to delete user, otherwise press 4 to log out\n";
                 std::cin >> selection;
 
-                if (selection == 1) {
+                if (selection == Register) {
                     db.remove_user(acc);
                     std::cout << "Successfully deleted user.\n";
 
-                }else if (selection == 0){
+                }else if (selection == Exit){
                     std::cout << "Logged out!\n";
 
                 }else{
@@ -53,7 +55,7 @@ int main() {
                 std::cout << "Invalid username/password\n";
             }
 
-        } else if (choice == 2) {
+        } else if (choice == Register) {
             std::cout << "Enter new username: ";
             std::string user;
             std::cin >> user;
@@ -70,11 +72,11 @@ int main() {
             std::cout << "Successfully registered as a new user...\n";
 
             //remove the logged-in user from the database
-        } else if (choice == 3) {
+        } else if (choice == Display_All_Users) {
             db.display_all_users();
 
             //Exit the program
-        } else if (choice ==4){
+        } else if (choice == Exit){
             return 0;
 
             //Catch invalid inputs and throw an error message
