@@ -6,7 +6,7 @@
 int main() {
     DB::Account_Database db;
     while (true) {
-        std::cout << "\n(1) Login \n(2) Register \n(3) Exit \n";
+        std::cout << "\n(1) Login \n(2) Register  \n(3) Display all users \n(4) Exit \n";
         int choice;
         std::cin >> choice;
 
@@ -23,31 +23,42 @@ int main() {
             Account acc{std::move(username), std::move(password)};
 
             //if yes, login
-            if (db.user_exists(acc)){
+            if (db.user_exists(acc)) {
                 std::cout << "\nLogin successful!";
 
-                //else, display error message
-            }else{
+                int selection;
+                std::cout << "\nPress 1 to delete user, otherwise press any button to log out\n";
+                std::cin >> selection;
+
+                if (selection == 1) {
+                    db.remove_user(acc);
+                    std::cout << "\nSuccessfully deleted user.";
+                }
+            } else {
                 std::cout << "\nInvalid username/password";
             }
-
-        }
-        if (choice == 2) {
+        } else if (choice == 2) {
             std::cout << "Enter new username: ";
-            std::string username;
-            std::cin >> username;
+            std::string user;
+            std::cin >> user;
 
             std::cout << "Enter new password: ";
-            std::string password;
-            std::cin >> password;
+            std::string pass;
+            std::cin >> pass;
 
-            Account acc{std::move(username), std::move(password)};
+            //create an Account object with the entered username and password
+            Account acc{user, pass};
 
-            //add user to database and display message
+            //add user to the database
             db.add_user(acc);
             std::cout << "\nSuccessfully registered as a new user...";
 
+            //remove the logged-in user from the database
         } else if (choice == 3) {
+            db.display_all_users();
+
+            //Exit the program
+        } else if (choice ==4){
             return 0;
         }
     }

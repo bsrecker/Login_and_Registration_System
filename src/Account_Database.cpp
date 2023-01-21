@@ -2,25 +2,35 @@
 // Created by brand on 1/18/2023.
 //
 
-#include <algorithm>
+#include <iostream>
 #include "Account_Database.h"
 #include "Account.h"
+#include <algorithm>
+
+
 
 bool DB::Account_Database::user_exists(const Account &acc) {
-    if (std::any_of(list_of_users.cbegin(), list_of_users.cend(),
-                    [acc](const Account &a) { return a == acc;}))
-
+    auto it = list_of_users.find(acc.get_username());
+    if (it != list_of_users.end()){
+        return it->second.get_password() == acc.get_password();
+    }
     return false;
 }
 
 
-void DB::Account_Database::add_user(Account acc) {
-    list_of_users.push_back(acc);
+void DB::Account_Database::add_user(const Account &acc) {
+    list_of_users.insert({acc.get_username(), acc});
 }
 
 void DB::Account_Database::remove_user(const Account &acc) {
-    list_of_users.erase(std::remove(list_of_users.begin(),
-                                    list_of_users.end(), acc), list_of_users.end());
+    list_of_users.erase(acc.get_username());
+}
+
+void DB::Account_Database::display_all_users() {
+    for (const auto &i : list_of_users){
+        std::cout << i.first << "\n";
+        std::cout <<"***********************\n";
+    }
 }
 
 

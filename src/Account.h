@@ -6,21 +6,28 @@
 #define LOGIN_AND_REGISTRATION_SYSTEM_ACCOUNT_H
 
 #include <string>
+#include <utility>
 
 
 class Account{
 
 private:
-    std::string_view password;
-    std::string_view username;
+    std::string password;
+    std::string username;
 
 
 public:
-    Account(std::string_view username, std::string_view password)
-            : username{username}, password{password}{
+    bool operator<(const Account &other) const {
+        return username < other.username;
+    }
+
+    Account(std::string username, std::string password)
+            : username{std::move(username)}, password{std::move(password)}{
 
     };
-    bool operator==(const Account& other) const;
+    std::string get_username() const { return username; }
+    std::string get_password() const { return password; }
+
 
 };
 

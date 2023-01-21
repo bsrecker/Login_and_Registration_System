@@ -5,8 +5,7 @@
 #ifndef LOGIN_AND_REGISTRATION_SYSTEM_ACCOUNT_DATABASE_H
 #define LOGIN_AND_REGISTRATION_SYSTEM_ACCOUNT_DATABASE_H
 
-
-#include <vector>
+#include <map>
 #include "Account.h"
 
 
@@ -15,16 +14,17 @@ namespace DB {
     class Account_Database {
 
     private:
-        std::vector<Account> list_of_users{};
+        std::map<std::string, Account> list_of_users;
 
     public:
 
         bool user_exists(const Account &);
 
-        void add_user(Account);
+        void add_user(const Account &);
 
         void remove_user(const Account &);
 
+        void display_all_users();
     };
 }
 #endif //LOGIN_AND_REGISTRATION_SYSTEM_ACCOUNT_DATABASE_H
